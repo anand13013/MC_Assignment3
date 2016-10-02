@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_assignment3" default="compile.module.assignment3">
+  <dirname property="module.assignment3.basedir" file="${ant.file.module_assignment3}"/>
+  
+  <property name="module.jdk.home.assignment3" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.assignment3" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.assignment3" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.assignment3" value="-encoding UTF-8 -source 1.7 ${compiler.args}"/>
+  
+  <property name="assignment3.output.dir" value="${module.assignment3.basedir}/build/classes/production/Assignment3"/>
+  <property name="assignment3.testoutput.dir" value="${module.assignment3.basedir}/build/classes/test/Assignment3"/>
+  
+  <path id="assignment3.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="assignment3.module.production.classpath">
+    <path refid="${module.jdk.classpath.assignment3}"/>
+  </path>
+  
+  <path id="assignment3.runtime.production.module.classpath">
+    <pathelement location="${assignment3.output.dir}"/>
+  </path>
+  
+  <path id="assignment3.module.classpath">
+    <path refid="${module.jdk.classpath.assignment3}"/>
+    <pathelement location="${assignment3.output.dir}"/>
+  </path>
+  
+  <path id="assignment3.runtime.module.classpath">
+    <pathelement location="${assignment3.testoutput.dir}"/>
+    <pathelement location="${assignment3.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.assignment3">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.assignment3">
+    <patternset refid="excluded.from.module.assignment3"/>
+  </patternset>
+  
+  
+  <target name="compile.module.assignment3" depends="compile.module.assignment3.production,compile.module.assignment3.tests" description="Compile module Assignment3"/>
+  
+  <target name="compile.module.assignment3.production" depends="register.custom.compilers" description="Compile module Assignment3; production classes"/>
+  
+  <target name="compile.module.assignment3.tests" depends="register.custom.compilers,compile.module.assignment3.production" description="compile module Assignment3; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.assignment3" description="cleanup module">
+    <delete dir="${assignment3.output.dir}"/>
+    <delete dir="${assignment3.testoutput.dir}"/>
+  </target>
+</project>
